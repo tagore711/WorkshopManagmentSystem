@@ -6,7 +6,8 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "react": "set PORT=3001 && react-scripts start",
-    "dev:all": "concurrently \"npm run dev\" \"npm run react\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run react\"",
+    "build": "react-scripts build"
   },
   "dependencies": {
     "cors": "^2.8.5",

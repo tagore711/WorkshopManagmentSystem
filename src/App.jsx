@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 // NOTE: Update this URL if your Node.js backend is running on a different port or server.
-const API_BASE_URL = 'http://localhost:3000/api'; 
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://ktm-workshop-management-system.onrender.com/api'
+    : 'http://localhost:3000/api'; 
 
 // Utility function for API calls
 const fetcher = async (endpoint, options = {}) => {

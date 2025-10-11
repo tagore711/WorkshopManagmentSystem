@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 require("dotenv").config();
 const db = require("./db"); 
 const cors = require("cors"); 
@@ -24,6 +25,9 @@ app.use(cors(corsOptions));
 // Middleware for parsing JSON bodies
 app.use(express.json());
 
+// Serve static files from React build
+app.use(express.static(path.join(__dirname, 'build')));
+
 // --- API ROUTE MOUNTING ---
 
 // CRITICAL FIX: Mount more specific paths before general paths to prevent route confusion.
@@ -36,27 +40,32 @@ app.use('/api/wics', wkicRoutes);
 
 // Basic Route for testing the server
 app.get("/", (req, res) => {
-  res.send("KTM Workshop Management API is running. All backend routes are active.");
+  res.send("KTM Workshop Management API is running. All backend routes are active.");
 });
 
 // A test route to query the database and verify connection
 app.get("/db-test", async (req, res) => {
-  try {
-    const result = await db.query("SELECT * FROM area_incharge LIMIT 1");
-    res.status(200).json({
-      message: "Database connection successful. Data preview:",
-      data: result.rows,
-    });
-  } catch (err) {
-    console.error("Error running DB test query:", err.message);
-    res.status(500).json({
-      message: "Database test failed. Check server logs and DB credentials.",
-      error: err.message,
-    });
-  }
+  try {
+    const result = await db.query("SELECT * FROM area_incharge LIMIT 1");
+    res.status(200).json({
+      message: "Database connection successful. Data preview:",
+      data: result.rows,
+    });
+  } catch (err) {
+    console.error("Error running DB test query:", err.message);
+    res.status(500).json({
+      message: "Database test failed. Check server logs and DB credentials.",
+      error: err.message,
+    });
+  }
+});
+
+// Serve React app for all other routes (must be after API routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
