@@ -51,6 +51,14 @@ router.post('/', async (req, res) => {
         return res.status(400).json({ message: "Missing required fields for Workshop." });
     }
     
+    // Convert area name to title case
+    const toTitleCase = (str) => {
+        return str.toLowerCase().split(' ').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    };
+    workshop.wkArea = toTitleCase(workshop.wkArea);
+    
     try {
         const rowCount = await workshopDao.addWorkshop(workshop);
         if (rowCount === 1) {
@@ -115,6 +123,14 @@ router.put('/:code', async (req, res) => {
     if (!workshop.wkName || !workshop.wkArea || workshop.manpower === undefined) {
         return res.status(400).json({ message: "Missing required update fields (wkName, wkArea, manpower, etc.)." });
     }
+
+    // Convert area name to title case
+    const toTitleCase = (str) => {
+        return str.toLowerCase().split(' ').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    };
+    workshop.wkArea = toTitleCase(workshop.wkArea);
 
     try {
         const rowCount = await workshopDao.updateWorkshop(workshop);

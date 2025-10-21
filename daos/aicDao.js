@@ -123,7 +123,7 @@ async function getAreasByAIC(icid) {
         SELECT area_name AS "Area_Name", ic AS "AIC_ID" 
         FROM area 
         WHERE ic = $1
-        ORDER BY area_name`;
+        ORDER BY LOWER(area_name)`;
     
     try {
         const result = await db.query(sql, [icid]);
@@ -142,7 +142,7 @@ async function getAreasByAIC(icid) {
 async function addArea(area) {
     const sql = `
         INSERT INTO area (area_name, ic)
-        VALUES ($1, $2)`;
+        VALUES (TRIM($1), $2)`;
     const params = [area.area_name, area.ic];
     
     try {
@@ -166,7 +166,7 @@ async function addArea(area) {
  * @returns {Promise<number>} The number of affected rows.
  */
 async function deleteArea(areaName) {
-    const sql = `DELETE FROM area WHERE area_name = $1`;
+    const sql = `DELETE FROM area WHERE LOWER(area_name) = LOWER($1)`;
     try {
         const result = await db.query(sql, [areaName]);
         return result.rowCount;

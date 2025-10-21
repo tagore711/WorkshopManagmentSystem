@@ -73,7 +73,7 @@ async function getWorkshopsByArea(areaName) {
             recovery, 
             score 
         FROM workshop 
-        WHERE area = $1
+        WHERE LOWER(area) = LOWER($1)
         ORDER BY wk_code`;
 
     try {
@@ -94,7 +94,7 @@ async function addWorkshop(workshop) {
     // Note: score will be calculated by the PostgreSQL trigger BEFORE INSERT.
     const sql = `
         INSERT INTO workshop (wk_code, wk_name, area, manpower, customer_visits, recovery)
-        VALUES ($1, $2, $3, $4, $5, $6)`;
+        VALUES ($1, $2, TRIM($3), $4, $5, $6)`;
     const params = [
         workshop.wkCode,
         workshop.wkName,
@@ -125,7 +125,7 @@ async function updateWorkshop(workshop) {
     // Note: score will be recalculated by the PostgreSQL trigger BEFORE UPDATE.
     const sql = `
         UPDATE workshop 
-        SET wk_name = $1, area = $2, manpower = $3, customer_visits = $4, recovery = $5
+        SET wk_name = $1, area = TRIM($2), manpower = $3, customer_visits = $4, recovery = $5
         WHERE wk_code = $6`;
     const params = [
         workshop.wkName,

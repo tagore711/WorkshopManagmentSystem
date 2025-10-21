@@ -2,13 +2,23 @@
 
 A full-stack web application for managing KTM workshops, area in-charges, and revenue tracking.
 
+## 🌐 Live Demo
+
+**[View Live Application](https://ktm-workshop-management-system.onrender.com)**
+
+> **Note:** Free tier may take 50 seconds to wake up on first visit.
+
 ## Features
 
-- Workshop management with scoring system
-- Area and Area In-Charge management
-- Workshop In-Charge tracking
-- Revenue tracking by quarter and year
-- Automated profit and score calculations via PostgreSQL triggers
+- 🏍️ **KTM-Branded UI** - Black and orange racing theme throughout
+- ✨ **Smooth Animations** - Entrance animations and hover effects
+- 🏢 **Workshop Management** - Comprehensive scoring system
+- 📍 **Area Management** - Area and Area In-Charge tracking
+- 👥 **Personnel Control** - Workshop In-Charge management
+- 💰 **Revenue Tracking** - Quarterly financial monitoring
+- ⚡ **Auto-Calculations** - Automated profit and score calculations via PostgreSQL triggers
+- 🔍 **Smart Search** - Case-insensitive search across all entities
+- 📊 **Real-Time Analytics** - Live data visualization
 
 ## Tech Stack
 
@@ -94,7 +104,11 @@ The database includes:
 
 ## Deployment
 
-See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions to Render.
+See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for detailed deployment instructions to Render.
+
+## Testing
+
+See [TEST_EXAMPLES.md](TEST_EXAMPLES.md) for comprehensive testing examples and sample data.
 
 ## License
 

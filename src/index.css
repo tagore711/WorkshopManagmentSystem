@@ -1,10 +1,327 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* Set a basic global font for aesthetics */
+
+/* Global Styling */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
+  background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%);
+  min-height: 100vh;
+  color: #FFFFFF;
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px #FF6900, 0 0 10px #FF6900, 0 0 15px #FF6900;
+  }
+  50% {
+    box-shadow: 0 0 10px #FF6900, 0 0 20px #FF6900, 0 0 30px #FF6900;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.6s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out;
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+.animate-slide-left-delay-1 {
+  animation: slideInLeft 0.8s ease-out 0.3s both;
+}
+
+.animate-slide-left-delay-2 {
+  animation: slideInLeft 0.8s ease-out 0.5s both;
+}
+
+.animate-slide-right-delay-1 {
+  animation: slideInRight 0.8s ease-out 0.4s both;
+}
+
+.animate-slide-right-delay-2 {
+  animation: slideInRight 0.8s ease-out 0.6s both;
+}
+
+.animate-scale-delay-1 {
+  animation: scaleIn 0.6s ease-out 0.7s both;
+}
+
+.animate-scale-delay-2 {
+  animation: scaleIn 0.6s ease-out 0.8s both;
+}
+
+.animate-scale-delay-3 {
+  animation: scaleIn 0.6s ease-out 0.9s both;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 6px;
+  border: 2px solid #0D0D0D;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF6900;
+  border: 2px solid #000000;
+}
+
+/* Responsive Tables */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.875rem;
+  }
+  
+  .overflow-x-auto {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Button Hover Effects */
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Input Focus Effects */
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid #FF6900;
+  outline-offset: 2px;
+  border-color: #FF6900;
+}
+
+/* Card Shadows */
+.shadow-card {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+.shadow-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Remove default table row outline/border */
+table tr {
+  outline: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+}
+
+table tr:focus,
+table tr:active,
+table tr:focus-visible,
+table tr:focus-within {
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: none !important;
+}
+
+table td {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+table td:focus,
+table td:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any focus rings or selection indicators */
+*:focus {
+  outline: none !important;
+}
+
+*:focus-visible {
+  outline: 2px solid #FF6900;
+  outline-offset: 2px;
+}
+
+/* Override input focus - keep orange for inputs only */
+input:focus-visible, 
+textarea:focus-visible, 
+select:focus-visible {
+  outline: 2px solid #FF6900;
+  outline-offset: 2px;
+  border-color: #FF6900;
+}
+
+/* Completely remove any table cell/row selection indicators */
+table tbody tr::before,
+table tbody tr::after,
+table tbody td::before,
+table tbody td::after {
+  display: none !important;
+}
+
+/* Remove browser default focus indicators for table elements */
+table, tbody, thead, tr, td, th {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Remove any potential border/shadow on table row click */
+table tr:hover,
+table tr:active,
+table tr:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }

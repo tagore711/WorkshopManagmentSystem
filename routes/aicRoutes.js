@@ -110,15 +110,22 @@ router.post('/areas', async (req, res) => {
         return res.status(400).json({ message: "Area Name and Area IC ID are required." });
     }
     
+    // Convert to title case
+    const toTitleCase = (str) => {
+        return str.toLowerCase().split(' ').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    };
+    
     const areaToSave = {
-        area_name: area.Area_Name,
+        area_name: toTitleCase(area.Area_Name),
         ic: area.AIC_ID 
     };
 
     try {
         const rowCount = await aicDao.addArea(areaToSave);
         if (rowCount === 1) {
-            res.status(201).json({ message: `Area '${area.Area_Name}' added successfully.` });
+            res.status(201).json({ message: `Area '${areaToSave.area_name}' added successfully.` });
         }
     } catch (err) {
         if (err.message.includes('already exists') || err.message.includes('does not exist')) {

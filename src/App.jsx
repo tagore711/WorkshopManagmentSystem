@@ -44,258 +44,478 @@ const Alert = ({ message, type, onClose }) => {
  */
 const DataTable = ({ data, onRowClick, headerMap = {}, title }) => {
     if (!data || data.length === 0) {
-        return <div className="p-4 text-center text-gray-500">{title} (No data available)</div>;
+        return (
+            <div className="p-8 text-center bg-gradient-to-br from-ktm-black-light to-ktm-black-medium rounded-2xl border-2 border-dashed border-ktm-orange">
+                <div className="text-6xl mb-3">📭</div>
+                <h4 className="text-lg font-bold text-white mb-1">{title}</h4>
+                <p className="text-gray-300">No data available</p>
+            </div>
+        );
     }
 
     const headers = Object.keys(data[0]); 
-
-    const handleClick = (row) => {
-        if (onRowClick) {
-            onRowClick(row);
-        }
-    };
-
+    const handleClick = onRowClick ? (row) => onRowClick(row) : () => {};
+    
     return (
-        <div className="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
-            <table className="min-w-full divide-y divide-gray-200">
-                <caption className="p-2 font-bold text-sm bg-gray-100 border-b">{title} ({data.length} records)</caption>
-                <thead className="bg-gray-50">
-                    <tr>
-                        {headers.map(key => (
-                            <th
-                                key={key}
-                                scope="col"
-                                className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase tracking-wider"
-                            >
-                                {headerMap[key] || key.replace(/([A-Z])/g, ' $1').trim()}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {data.map((row, index) => (
-                        <tr 
-                            key={index} 
-                            onClick={() => handleClick(row)}
-                            className={`hover:bg-yellow-50 ${onRowClick ? 'cursor-pointer' : ''}`}
-                        >
+        <div className="overflow-hidden rounded-xl shadow-lg border border-ktm-orange">
+            <div className="bg-gradient-to-r from-ktm-orange to-ktm-orange-dark px-6 py-4">
+                <h4 className="text-lg font-bold text-white flex items-center gap-2">
+                    📊 {title}
+                    <span className="ml-auto bg-ktm-orange/20 px-3 py-1 rounded-full text-sm">{data.length} records</span>
+                </h4>
+            </div>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-ktm-black-light">
+                    <thead className="bg-ktm-black-medium">
+                        <tr>
                             {headers.map(key => (
-                                <td 
+                                <th 
                                     key={key} 
-                                    className="px-3 py-2 whitespace-nowrap text-sm text-gray-900"
+                                    className="px-6 py-4 border-b-2 border-ktm-orange text-left text-xs font-bold uppercase tracking-wider text-white"
                                 >
-                                    {row[key]}
-                                </td>
+                                    {headerMap[key] || key.replace(/([A-Z])/g, ' $1').trim()}
+                                </th>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="bg-ktm-black-light divide-y divide-ktm-orange/30">
+                        {data.map((row, index) => (
+                            <tr 
+                                key={index} 
+                                onClick={() => handleClick(row)}
+                                className={`transition-all duration-200 ${onRowClick ? 'cursor-pointer hover:bg-ktm-black-medium hover:shadow-sm' : ''} ${index % 2 === 0 ? 'bg-ktm-black-light' : 'bg-ktm-black-medium'}`}
+                            >
+                                {headers.map(key => (
+                                    <td 
+                                        key={key} 
+                                        className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
+                                    >
+                                        {row[key]}
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
 
 
+// --- FOOTER COMPONENT ---
+
+const Footer = () => (
+    <footer className="mt-8 bg-ktm-black-light rounded-xl shadow-lg border-2 border-ktm-orange overflow-hidden">
+        <div className="p-8">
+            {/* Developers Section */}
+            <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-4 text-white">👨‍💻 Developed By</h3>
+                <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    {/* Developer 1 */}
+                    <div className="bg-ktm-black-medium rounded-lg p-6 transform hover:scale-105 transition-all duration-300 hover:shadow-xl border-2 border-ktm-orange">
+                        <div className="flex items-center justify-center mb-3">
+                            <div className="w-20 h-20 bg-gradient-to-br from-ktm-orange-light to-ktm-orange-dark rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+                                AR
+                            </div>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">Aryan Rajesh Gadam</h4>
+                        <p className="text-gray-300 text-sm mb-3">123cs0020@iiitk.ac.in</p>
+                        <div className="space-y-2">
+                            <a href="tel:+919704563437" className="flex items-center justify-center gap-2 text-green-600 hover:text-green-700 transition-colors font-medium">
+                                <span className="text-xl">📞</span> +91 9704563437
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Developer 2 */}
+                    <div className="bg-ktm-black-medium rounded-lg p-6 transform hover:scale-105 transition-all duration-300 hover:shadow-xl border-2 border-ktm-orange">
+                        <div className="flex items-center justify-center mb-3">
+                            <div className="w-20 h-20 bg-gradient-to-br from-ktm-orange-light to-ktm-orange-dark rounded-full flex items-center justify-center text-3xl font-bold text-white shadow-lg">
+                                TJ
+                            </div>
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">Tagore Jagata</h4>
+                        <p className="text-gray-300 text-sm mb-3">123cs0042@iiitk.ac.in</p>
+                        <div className="space-y-2">
+                            <a href="tel:+919154711711" className="flex items-center justify-center gap-2 text-green-600 hover:text-green-700 transition-colors font-medium">
+                                <span className="text-xl">📞</span> +91 9154711711
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Project Info */}
+            <div className="text-center border-t-2 border-ktm-orange pt-6 mt-6">
+                <div className="flex flex-wrap justify-center items-center gap-6 mb-4">
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl">🏍️</span>
+                        <span className="text-white font-medium">KTM Workshop Management</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl">🎓</span>
+                        <span className="text-white font-medium">IIIT Kurnool Project</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl">⚛️</span>
+                        <span className="text-white font-medium">React + PostgreSQL</span>
+                    </div>
+                </div>
+                <p className="text-gray-300 text-sm">
+                    © 2025 KTM Workshop Management System. Built with ❤️ for efficient workshop operations.
+                </p>
+            </div>
+        </div>
+    </footer>
+);
+
+// --- HOME PAGE COMPONENT ---
+
+const HomePage = () => (
+    <div className="min-h-screen">
+        {/* Hero Section */}
+        <div className="relative overflow-hidden bg-ktm-black-medium border-2 border-ktm-orange rounded-2xl shadow-lg p-10 mb-8">
+            <div className="text-center animate-fade-in">
+                <span className="text-6xl mb-6 inline-block animate-bounce">🏍️</span>
+                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 animate-slide-down">
+                    KTM Workshop Management System
+                </h1>
+                <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-3xl mx-auto animate-slide-up">
+                    Streamline your workshop operations with automated scoring, real-time analytics, and comprehensive revenue tracking
+                </p>
+                <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                    <div className="bg-ktm-black-light rounded-xl p-6 shadow-md hover:shadow-2xl hover:shadow-ktm-orange/50 hover:scale-110 transition-all duration-500 border-2 border-ktm-orange animate-slide-left-delay-1">
+                        <div className="w-14 h-14 bg-ktm-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-3xl">⚡</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Real-Time</h3>
+                        <p className="text-gray-300 text-sm">Automated scoring and instant calculations</p>
+                    </div>
+                    <div className="bg-ktm-black-light rounded-xl p-6 shadow-md hover:shadow-2xl hover:shadow-ktm-orange/50 hover:scale-110 transition-all duration-500 border-2 border-ktm-orange animate-fade-in-delay-2">
+                        <div className="w-14 h-14 bg-ktm-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-3xl">📊</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Analytics</h3>
+                        <p className="text-gray-300 text-sm">Comprehensive revenue tracking & reports</p>
+                    </div>
+                    <div className="bg-ktm-black-light rounded-xl p-6 shadow-md hover:shadow-2xl hover:shadow-ktm-orange/50 hover:scale-110 transition-all duration-500 border-2 border-ktm-orange animate-slide-right-delay-1">
+                        <div className="w-14 h-14 bg-ktm-orange rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span className="text-3xl">👥</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-white mb-2">Management</h3>
+                        <p className="text-gray-300 text-sm">Complete personnel control system</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* Features Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-slide-left-delay-1">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">🏢</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Workshop Management</h3>
+                <p className="text-gray-300 text-sm">Automated performance scoring based on manpower, visits, and recovery metrics.</p>
+            </div>
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-slide-left-delay-2">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">📍</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Area Control</h3>
+                <p className="text-gray-300 text-sm">Geographical organization with dedicated in-charges for regional management.</p>
+            </div>
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-slide-right-delay-1">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">💰</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Revenue Tracking</h3>
+                <p className="text-gray-300 text-sm">Quarterly financial monitoring with automatic profit calculations.</p>
+            </div>
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-scale-delay-1">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">⚙️</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Automated Triggers</h3>
+                <p className="text-gray-300 text-sm">Database triggers for real-time score and profit calculations.</p>
+            </div>
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-scale-delay-2">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">🔗</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Relationship Management</h3>
+                <p className="text-gray-300 text-sm">Link workshop in-charges for clear accountability and oversight.</p>
+            </div>
+            <div className="bg-ktm-black-light rounded-xl shadow-md hover:shadow-xl hover:scale-105 p-6 transition-all duration-300 border-l-4 border-ktm-orange animate-scale-delay-3">
+                <div className="w-12 h-12 bg-ktm-orange rounded-lg flex items-center justify-center mb-4">
+                    <span className="text-3xl">🔍</span>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Smart Search</h3>
+                <p className="text-gray-300 text-sm">Case-insensitive search and filtering for quick data access.</p>
+            </div>
+        </div>
+
+        {/* Getting Started */}
+        <div className="bg-ktm-black-light rounded-xl shadow-lg p-8 border-2 border-ktm-orange animate-fade-in">
+            <div className="text-center mb-8">
+                <span className="text-4xl mb-3 inline-block animate-bounce">🚀</span>
+                <h2 className="text-2xl font-bold text-white">Quick Start Guide</h2>
+                <p className="text-gray-300 mt-2">Follow these steps to set up your workshop management system</p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+                <div className="relative bg-ktm-black-medium rounded-xl p-6 border-2 border-ktm-orange animate-slide-in-left hover:scale-105 transition-all duration-300">
+                    <div className="absolute -top-4 left-6 bg-ktm-orange text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-lg animate-pulse">1</div>
+                    <h4 className="font-bold text-white mb-2 mt-2">Add Area In-Charges</h4>
+                    <p className="text-gray-300 text-sm">Create regional supervisors to oversee geographical areas.</p>
+                </div>
+                <div className="relative bg-ktm-black-medium rounded-xl p-6 border-2 border-ktm-orange animate-scale-in hover:scale-105 transition-all duration-300">
+                    <div className="absolute -top-4 left-6 bg-ktm-orange text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-lg animate-pulse">2</div>
+                    <h4 className="font-bold text-white mb-2 mt-2">Set Up Workshops</h4>
+                    <p className="text-gray-300 text-sm">Add workshops with performance metrics and assign managers.</p>
+                </div>
+                <div className="relative bg-ktm-black-medium rounded-xl p-6 border-2 border-ktm-orange animate-slide-in-right hover:scale-105 transition-all duration-300">
+                    <div className="absolute -top-4 left-6 bg-ktm-orange text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold shadow-lg animate-pulse">3</div>
+                    <h4 className="font-bold text-white mb-2 mt-2">Track Revenue</h4>
+                    <p className="text-gray-300 text-sm">Input quarterly sales data with automatic profit calculations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
 // --- FORMS (Defined outside App for brevity, but logically part of it) ---
 
 const AicForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-inner">
-        <h3 className="text-lg font-bold text-blue-800 mb-3">{isEditing ? 'Update Area IC' : 'Add Area IC'}</h3>
-        <div className="grid grid-cols-2 gap-3">
+    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+        <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            {isEditing ? '✏️ Update Area IC' : '➕ Add Area IC'}
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
             <input 
                 type="number" 
                 placeholder="ID" 
                 value={formData.ID || ''} 
                 onChange={(e) => setFormData({ ...formData, ID: parseInt(e.target.value) || '' })}
-                disabled={isEditing}
-                className={`col-span-1 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="text" 
                 placeholder="First Name" 
                 value={formData.FirstName || ''} 
                 onChange={(e) => setFormData({ ...formData, FirstName: e.target.value })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="text" 
                 placeholder="Middle Name (Optional)" 
                 value={formData.MiddleName || ''} 
                 onChange={(e) => setFormData({ ...formData, MiddleName: e.target.value })}
-                className="col-span-2 p-2 border rounded-md"
+                className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="text" 
                 placeholder="Last Name" 
                 value={formData.LastName || ''} 
                 onChange={(e) => setFormData({ ...formData, LastName: e.target.value })}
-                className="col-span-2 p-2 border rounded-md"
+                className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
         </div>
-        <div className="mt-4 flex space-x-2">
-            <button onClick={onSave} className={`px-4 py-2 text-white font-semibold rounded-lg shadow-md ${isEditing ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'}`}>
-                {isEditing ? 'Update IC' : 'Add IC'}
+        <div className="mt-5 flex flex-wrap gap-2">
+            <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
+                {isEditing ? '💾 Update' : '✅ Add IC'}
             </button>
             {isEditing && (
-                <button onClick={onDelete} className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-                    Delete IC
+                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🗑️ Delete
+                </button>
+            )}
+            {isEditing && (
+                <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🔄 Clear
                 </button>
             )}
         </div>
     </div>
 );
 
-const AreaForm = ({ formData, setFormData, onSave, onDelete }) => (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
-        <h3 className="text-lg font-bold text-blue-800 mb-3">Add New Area</h3>
-        <div className="grid grid-cols-2 gap-3">
+const AreaForm = ({ formData, setFormData, onSave, onDelete }) => {
+    // Title case conversion function
+    const toTitleCase = (str) => {
+        return str.toLowerCase().split(' ').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    };
+
+    return (
+    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+        <h3 className="text-lg font-bold text-white mb-4">➕ Add New Area</h3>
+        <div className="grid grid-cols-2 gap-4">
             <input 
                 type="text" 
-                placeholder="Area Name (e.g., North, South)" 
+                placeholder="Area Name (e.g., North Region)" 
                 value={formData.Area_Name || ''} 
-                onChange={(e) => setFormData({ ...formData, Area_Name: e.target.value })}
-                className="col-span-1 p-2 border rounded-md"
+                onChange={(e) => setFormData({ ...formData, Area_Name: toTitleCase(e.target.value) })}
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="number" 
                 placeholder="Area IC ID (Manager ID)" 
                 value={formData.AIC_ID || ''} 
                 onChange={(e) => setFormData({ ...formData, AIC_ID: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
         </div>
-        <div className="mt-4 flex space-x-2">
-            <button onClick={onSave} className="px-4 py-2 text-white font-semibold rounded-lg shadow-md bg-green-600 hover:bg-green-700">
-                Add Area
+        <div className="mt-5 flex gap-2">
+            <button onClick={onSave} className="flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md bg-green-600 hover:bg-green-700 transition-all">
+                ✅ Add Area
             </button>
             {formData.Area_Name && (
-                <button onClick={onDelete} className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-                    Delete Area
+                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all">
+                    🗑️ Delete Area
                 </button>
             )}
         </div>
     </div>
-);
+    );
+};
 
 
-const WorkshopForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-inner">
-        <h3 className="text-lg font-bold text-blue-800 mb-3">{isEditing ? 'Update Workshop' : 'Add Workshop'}</h3>
+const WorkshopForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => {
+    // Title case conversion function
+    const toTitleCase = (str) => {
+        return str.toLowerCase().split(' ').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+    };
+
+    return (
+    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+        <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Workshop' : '➕ Add Workshop'}</h3>
         <div className="grid grid-cols-3 gap-3">
             <input 
                 type="number" 
                 placeholder="Code" 
                 value={formData.wkCode || ''} 
                 onChange={(e) => setFormData({ ...formData, wkCode: parseInt(e.target.value) || '' })}
-                disabled={isEditing}
-                className={`col-span-1 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="text" 
                 placeholder="Name" 
                 value={formData.wkName || ''} 
                 onChange={(e) => setFormData({ ...formData, wkName: e.target.value })}
-                className="col-span-2 p-2 border rounded-md"
+                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="text" 
                 placeholder="Area (e.g., North)" 
                 value={formData.wkArea || ''} 
-                onChange={(e) => setFormData({ ...formData, wkArea: e.target.value })}
-                className="col-span-3 p-2 border rounded-md"
+                onChange={(e) => setFormData({ ...formData, wkArea: toTitleCase(e.target.value) })}
+                className="col-span-3 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="number" 
                 placeholder="Manpower" 
                 value={formData.manpower || ''} 
                 onChange={(e) => setFormData({ ...formData, manpower: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="number" 
                 placeholder="Customer Visits" 
                 value={formData.customer_visits || ''} 
                 onChange={(e) => setFormData({ ...formData, customer_visits: parseInt(e.target.value) || '' })}
-                className="col-span-2 p-2 border rounded-md"
+                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <select
                 value={formData.recovery || 'no'}
                 onChange={(e) => setFormData({ ...formData, recovery: e.target.value })}
-                className="col-span-2 p-2 border rounded-md bg-white"
+                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             >
                 <option value="no">Recovery: No</option>
                 <option value="yes">Recovery: Yes</option>
             </select>
-            <p className="col-span-1 p-2 border rounded-md bg-gray-200 text-sm font-semibold">Score: {formData.score || 'N/A'}</p>
+            <p className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Score: {formData.score || 'N/A'}</p>
         </div>
-        <div className="mt-4 flex space-x-2">
-            <button onClick={onSave} className={`px-4 py-2 text-white font-semibold rounded-lg shadow-md ${isEditing ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'}`}>
-                {isEditing ? 'Update Workshop' : 'Add Workshop'}
+        <div className="mt-5 flex gap-2">
+            <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
+                {isEditing ? '💾 Update' : '✅ Add Workshop'}
             </button>
             {isEditing && (
-                <button onClick={onDelete} className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-                    Delete Workshop
+                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🗑️ Delete
+                </button>
+            )}
+            {isEditing && (
+                <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🔄 Clear
                 </button>
             )}
         </div>
     </div>
-);
+    );
+};
 
 const WICForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
-    <div className="p-4 bg-gray-50 rounded-lg shadow-inner">
-        <h3 className="text-lg font-bold text-blue-800 mb-3">{isEditing ? 'Update Workshop IC' : 'Add Workshop IC'}</h3>
+    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+        <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Workshop IC' : '➕ Add Workshop IC'}</h3>
         <div className="grid grid-cols-2 gap-3">
             <input 
                 type="number" 
                 placeholder="WIC ID" 
                 value={formData.WkICID || ''} 
                 onChange={(e) => setFormData({ ...formData, WkICID: parseInt(e.target.value) || '' })}
-                disabled={isEditing}
-                className={`col-span-1 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
             <input 
                 type="number" 
                 placeholder="Area IC ID" 
                 value={formData.AreaIC || ''} 
                 onChange={(e) => setFormData({ ...formData, AreaIC: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="text" 
                 placeholder="First Name" 
                 value={formData.FName || ''} 
                 onChange={(e) => setFormData({ ...formData, FName: e.target.value })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="text" 
                 placeholder="Middle Name (Optional)" 
                 value={formData.MName || ''} 
                 onChange={(e) => setFormData({ ...formData, MName: e.target.value })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="text" 
                 placeholder="Last Name" 
                 value={formData.LName || ''} 
                 onChange={(e) => setFormData({ ...formData, LName: e.target.value })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
             <input 
                 type="number" 
                 placeholder="Rating (1-10)" 
                 value={formData.Rating || ''} 
                 onChange={(e) => setFormData({ ...formData, Rating: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-2 border rounded-md"
+                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
         </div>
-        <div className="mt-4 flex space-x-2">
-            <button onClick={onSave} className={`px-4 py-2 text-white font-semibold rounded-lg shadow-md ${isEditing ? 'bg-yellow-600 hover:bg-yellow-700' : 'bg-green-600 hover:bg-green-700'}`}>
-                {isEditing ? 'Update WIC' : 'Add WIC'}
+        <div className="mt-5 flex gap-2">
+            <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
+                {isEditing ? '💾 Update' : '✅ Add WIC'}
             </button>
             {isEditing && (
-                <button onClick={onDelete} className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-                    Delete WIC
+                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🗑️ Delete
+                </button>
+            )}
+            {isEditing && (
+                <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                    🔄 Clear
                 </button>
             )}
         </div>
@@ -311,76 +531,70 @@ const RevenueForm = ({ formData, setFormData, onSave, onDelete, allRevenueData }
     );
 
     return (
-        <div className="p-4 bg-gray-50 rounded-lg shadow-inner">
-            <h3 className="text-lg font-bold text-blue-800 mb-3">{isEditing ? 'Update Revenue' : 'Add Revenue'}</h3>
+        <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+            <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Revenue' : '➕ Add Revenue'}</h3>
             <div className="grid grid-cols-2 gap-3">
                 <input 
                     type="number" 
                     placeholder="Workshop Code" 
                     value={formData.wkcode || ''} 
                     onChange={(e) => setFormData({ ...formData, wkcode: parseInt(e.target.value) || '' })}
-                    disabled={isEditing}
-                    className={`col-span-1 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                    className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
                 <input 
                     type="number" 
                     placeholder="Year" 
                     value={formData.year || ''} 
                     onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) || '' })}
-                    disabled={isEditing}
-                    className={`col-span-1 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                    className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
                  <input 
                     type="number" 
                     placeholder="Quarter (1-4)" 
                     value={formData.quarter || ''} 
                     onChange={(e) => setFormData({ ...formData, quarter: parseInt(e.target.value) || '' })}
-                    disabled={isEditing}
-                    className={`col-span-2 p-2 border rounded-md ${isEditing ? 'bg-gray-200' : 'bg-white'}`}
+                    className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
                 <input 
                     type="number" 
                     placeholder="Total Sales" 
                     value={formData.total_sales || ''} 
                     onChange={(e) => setFormData({ ...formData, total_sales: parseInt(e.target.value) || '' })}
-                    className="col-span-1 p-2 border rounded-md"
+                    className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                 />
                 <input 
                     type="number" 
                     placeholder="Service Cost" 
                     value={formData.service_cost || ''} 
                     onChange={(e) => setFormData({ ...formData, service_cost: parseInt(e.target.value) || '' })}
-                    className="col-span-1 p-2 border rounded-md"
+                    className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                 />
-                 <p className="col-span-2 p-2 border rounded-md bg-gray-200 text-sm font-semibold">Profit: {(formData.total_sales || 0) - (formData.service_cost || 0)}</p>
+                 <p className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Profit: {(formData.total_sales || 0) - (formData.service_cost || 0)}</p>
 
             </div>
-            <div className="mt-4 flex space-x-2">
-                {/* Condition: If editing mode, show Update/Delete. Otherwise, show Add. */}
-                {isEditing ? (
+            <div className="mt-5 flex gap-2">
+                <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
+                    {isEditing ? '💾 Update' : '✅ Add Revenue'}
+                </button>
+                {isEditing && (
                     <>
-                        <button onClick={onSave} className={`px-4 py-2 text-white font-semibold rounded-lg shadow-md bg-yellow-600 hover:bg-yellow-700`}>
-                            Update Revenue
+                        <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                            🗑️ Delete
                         </button>
-                        <button onClick={onDelete} className="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-                            Delete Revenue
+                        <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                            🔄 Clear
                         </button>
                     </>
-                ) : (
-                    <button onClick={onSave} className={`px-4 py-2 text-white font-semibold rounded-lg shadow-md bg-green-600 hover:bg-green-700`}>
-                        Add Revenue
-                    </button>
                 )}
             </div>
         </div>
     );
 };
-
 // --- MAIN APP COMPONENT ---
 
 const App = () => {
     // --- STATE MANAGEMENT ---
-    const [activeTab, setActiveTab] = useState('aics');
+    const [activeTab, setActiveTab] = useState('home');
     const [alert, setAlert] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -697,39 +911,53 @@ const App = () => {
     };
 
     const tabClasses = (tab) => 
-        `px-4 py-2 font-semibold transition-all duration-200 ${
+        `px-6 py-3 font-semibold transition-all duration-300 border-b-4 ${
             activeTab === tab 
-            ? 'bg-blue-800 text-white rounded-t-lg shadow-lg' 
-            : 'text-gray-700 hover:bg-gray-200'
-        }`;
+            ? 'bg-gradient-to-t from-ktm-orange to-ktm-orange-dark text-white border-ktm-orange-dark shadow-lg transform scale-105' 
+            : 'bg-ktm-black-light text-white border-transparent hover:bg-ktm-black-medium hover:border-ktm-orange hover:text-ktm-orange'
+        } rounded-t-lg`;
 
     return (
-        <div className="min-h-screen bg-gray-100 p-4 font-sans">
+        <div className="min-h-screen bg-ktm-black p-4 font-sans">
             {alert && <Alert message={alert.message} type={alert.type} onClose={clearAlert} />}
 
-            <header className="bg-orange-500 text-white p-4 rounded-lg shadow-xl mb-4">
-                <h1 className="text-3xl font-extrabold text-center">
-                    KTM Workshop Management
-                </h1>
+            <header className="bg-gradient-to-r from-ktm-orange to-ktm-orange-dark text-white p-5 rounded-xl shadow-lg mb-4">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex items-center gap-3">
+                        <span className="text-4xl">🏍️</span>
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-bold">
+                                KTM Workshop Management
+                            </h1>
+                            <p className="text-white/80 text-sm mt-1">
+                                Professional Workshop Operations & Revenue Tracking
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </header>
             
-            <div className="flex justify-start border-b border-gray-300">
-                <button className={tabClasses('aics')} onClick={() => setActiveTab('aics')}>Area ICs</button>
-                <button className={tabClasses('areas')} onClick={() => setActiveTab('areas')}>Areas</button>
-                <button className={tabClasses('workshops')} onClick={() => setActiveTab('workshops')}>Workshops</button>
-                <button className={tabClasses('revenue')} onClick={() => setActiveTab('revenue')}>Revenue</button>
-                <button className={tabClasses('wics')} onClick={() => setActiveTab('wics')}>Workshop ICs</button>
-                <button className={tabClasses('manages')} onClick={() => setActiveTab('manages')}>Manages Relations</button>
+            <div className="flex justify-start border-b-2 border-ktm-orange overflow-x-auto flex-wrap bg-ktm-black-light rounded-t-xl shadow-md p-2 gap-2">
+                <button className={tabClasses('home')} onClick={() => setActiveTab('home')}>🏠 Home</button>
+                <button className={tabClasses('aics')} onClick={() => setActiveTab('aics')}>👔 Area ICs</button>
+                <button className={tabClasses('areas')} onClick={() => setActiveTab('areas')}>📍 Areas</button>
+                <button className={tabClasses('wics')} onClick={() => setActiveTab('wics')}>👨‍💼 Workshop ICs</button>
+                <button className={tabClasses('workshops')} onClick={() => setActiveTab('workshops')}>🏭 Workshops</button>
+                <button className={tabClasses('manages')} onClick={() => setActiveTab('manages')}>🔗 Manages</button>
+                <button className={tabClasses('revenue')} onClick={() => setActiveTab('revenue')}>💰 Revenue</button>
             </div>
 
             {loading && (
-                <div className="text-center p-4 text-blue-500 font-bold">
-                    <div className="animate-spin inline-block w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full mr-2"></div>
-                    Loading data...
+                <div className="text-center p-6 bg-orange-50 rounded-lg my-4 border-2 border-ktm-orange">
+                    <div className="animate-spin inline-block w-8 h-8 border-4 border-ktm-orange border-t-transparent rounded-full mr-3"></div>
+                    <span className="text-ktm-orange-dark font-bold text-lg">Loading data...</span>
                 </div>
             )}
 
-            <main className="bg-white p-6 rounded-b-lg shadow-2xl">
+            <main className="bg-ktm-black-light p-8 rounded-b-2xl shadow-lg border-t-2 border-ktm-orange">
+                {/* --- TAB: HOME --- */}
+                {activeTab === 'home' && <HomePage />}
+
                 {/* --- TAB: AREA ICs --- */}
                 {activeTab === 'aics' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -749,9 +977,9 @@ const App = () => {
                                     placeholder="Search Area IC by Name..."
                                     value={aicSearchTerm}
                                     onChange={(e) => setAicSearchTerm(e.target.value)}
-                                    className="flex-grow p-2 border rounded-md"
+                                    className="flex-grow p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
+                                <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Search</button>
                                 <button type="button" onClick={() => fetchData('Area In-Charges', setAicData, '/aics')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
                             <DataTable 
@@ -816,9 +1044,9 @@ const App = () => {
                                     placeholder="Search Workshop by Name..."
                                     value={workshopSearchTerm}
                                     onChange={(e) => setWorkshopSearchTerm(e.target.value)}
-                                    className="flex-grow p-2 border rounded-md"
+                                    className="flex-grow p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
+                                <button type="submit" className="bg-ktm-orange text-white px-4 py-2 rounded-lg hover:bg-ktm-orange-dark">Search</button>
                                 <button type="button" onClick={() => fetchData('Workshops', setWorkshopData, '/workshops')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
                             <DataTable 
@@ -881,9 +1109,9 @@ const App = () => {
                                     placeholder="Search WIC by First Name..."
                                     value={wicSearchTerm}
                                     onChange={(e) => setWicSearchTerm(e.target.value)}
-                                    className="flex-grow p-2 border rounded-md"
+                                    className="flex-grow p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
-                                <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
+                                <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Search</button>
                                 <button type="button" onClick={() => fetchData('Workshop ICs', setWicData, '/wics')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
                             <DataTable 
@@ -902,22 +1130,22 @@ const App = () => {
                 {/* --- TAB: MANAGES RELATIONS --- */}
                 {activeTab === 'manages' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="col-span-1 p-4 bg-gray-50 rounded-lg shadow-inner">
-                            <h3 className="text-lg font-bold text-blue-800 mb-3">Add Relationship</h3>
+                        <div className="col-span-1 p-4 bg-ktm-black-light rounded-lg shadow-inner border border-ktm-orange">
+                            <h3 className="text-lg font-bold text-white mb-3">Add Relationship</h3>
                             <div className="space-y-3">
                                 <input 
                                     type="number" 
                                     placeholder="Workshop Code (WkshpID)" 
                                     value={managesForm.WkshpID || ''} 
                                     onChange={(e) => setManagesForm({ ...managesForm, WkshpID: parseInt(e.target.value) || '' })}
-                                    className="w-full p-2 border rounded-md"
+                                    className="w-full p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
                                 <input 
                                     type="number" 
                                     placeholder="WIC ID (ICID)" 
                                     value={managesForm.ICID || ''} 
                                     onChange={(e) => setManagesForm({ ...managesForm, ICID: parseInt(e.target.value) || '' })}
-                                    className="w-full p-2 border rounded-md"
+                                    className="w-full p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
                                 <button onClick={handleManagesEntryAdd} className="w-full px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700">
                                     Establish Link
@@ -941,6 +1169,9 @@ const App = () => {
                     </div>
                 )}
             </main>
+
+            {/* Footer with Developer Credits */}
+            <Footer />
         </div>
     );
 };
