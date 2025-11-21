@@ -28,3 +28,7 @@ build/
 # Database
 *.sqlite
 *.db
+
+# Credentials
+SUPABASE_CREDENTIALS.txt
+supabase_credentials.txt

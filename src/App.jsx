@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 // NOTE: Update this URL if your Node.js backend is running on a different port or server.
-const API_BASE_URL = process.env.NODE_ENV === 'production' 
+const API_BASE_URL = process.env.NODE_ENV === 'production'
     ? 'https://ktm-workshop-management-system.onrender.com/api'
-    : 'http://localhost:3000/api'; 
+    : 'http://localhost:3000/api';
 
 // Utility function for API calls
 const fetcher = async (endpoint, options = {}) => {
@@ -53,9 +53,9 @@ const DataTable = ({ data, onRowClick, headerMap = {}, title }) => {
         );
     }
 
-    const headers = Object.keys(data[0]); 
-    const handleClick = onRowClick ? (row) => onRowClick(row) : () => {};
-    
+    const headers = Object.keys(data[0]);
+    const handleClick = onRowClick ? (row) => onRowClick(row) : () => { };
+
     return (
         <div className="overflow-hidden rounded-xl shadow-lg border border-ktm-orange">
             <div className="bg-gradient-to-r from-ktm-orange to-ktm-orange-dark px-6 py-4">
@@ -69,8 +69,8 @@ const DataTable = ({ data, onRowClick, headerMap = {}, title }) => {
                     <thead className="bg-ktm-black-medium">
                         <tr>
                             {headers.map(key => (
-                                <th 
-                                    key={key} 
+                                <th
+                                    key={key}
                                     className="px-6 py-4 border-b-2 border-ktm-orange text-left text-xs font-bold uppercase tracking-wider text-white"
                                 >
                                     {headerMap[key] || key.replace(/([A-Z])/g, ' $1').trim()}
@@ -80,14 +80,14 @@ const DataTable = ({ data, onRowClick, headerMap = {}, title }) => {
                     </thead>
                     <tbody className="bg-ktm-black-light divide-y divide-ktm-orange/30">
                         {data.map((row, index) => (
-                            <tr 
-                                key={index} 
+                            <tr
+                                key={index}
                                 onClick={() => handleClick(row)}
                                 className={`transition-all duration-200 ${onRowClick ? 'cursor-pointer hover:bg-ktm-black-medium hover:shadow-sm' : ''} ${index % 2 === 0 ? 'bg-ktm-black-light' : 'bg-ktm-black-medium'}`}
                             >
                                 {headers.map(key => (
-                                    <td 
-                                        key={key} 
+                                    <td
+                                        key={key}
                                         className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white"
                                     >
                                         {row[key]}
@@ -155,7 +155,7 @@ const Footer = () => (
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="text-2xl">🎓</span>
-                        <span className="text-white font-medium">IIIT Kurnool Project</span>
+                        <span className="text-white font-medium">IIITDM KURNOOL Project</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="text-2xl">⚛️</span>
@@ -292,31 +292,31 @@ const AicForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
             {isEditing ? '✏️ Update Area IC' : '➕ Add Area IC'}
         </h3>
         <div className="grid grid-cols-2 gap-4">
-            <input 
-                type="number" 
-                placeholder="ID" 
-                value={formData.ID || ''} 
+            <input
+                type="number"
+                placeholder="ID"
+                value={formData.ID || ''}
                 onChange={(e) => setFormData({ ...formData, ID: parseInt(e.target.value) || '' })}
                 className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
-            <input 
-                type="text" 
-                placeholder="First Name" 
-                value={formData.FirstName || ''} 
+            <input
+                type="text"
+                placeholder="First Name"
+                value={formData.FirstName || ''}
                 onChange={(e) => setFormData({ ...formData, FirstName: e.target.value })}
                 className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
-            <input 
-                type="text" 
-                placeholder="Middle Name (Optional)" 
-                value={formData.MiddleName || ''} 
+            <input
+                type="text"
+                placeholder="Middle Name (Optional)"
+                value={formData.MiddleName || ''}
                 onChange={(e) => setFormData({ ...formData, MiddleName: e.target.value })}
                 className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
-            <input 
-                type="text" 
-                placeholder="Last Name" 
-                value={formData.LastName || ''} 
+            <input
+                type="text"
+                placeholder="Last Name"
+                value={formData.LastName || ''}
                 onChange={(e) => setFormData({ ...formData, LastName: e.target.value })}
                 className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
@@ -342,41 +342,41 @@ const AicForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
 const AreaForm = ({ formData, setFormData, onSave, onDelete }) => {
     // Title case conversion function
     const toTitleCase = (str) => {
-        return str.toLowerCase().split(' ').map(word => 
+        return str.toLowerCase().split(' ').map(word =>
             word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' ');
     };
 
     return (
-    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
-        <h3 className="text-lg font-bold text-white mb-4">➕ Add New Area</h3>
-        <div className="grid grid-cols-2 gap-4">
-            <input 
-                type="text" 
-                placeholder="Area Name (e.g., North Region)" 
-                value={formData.Area_Name || ''} 
-                onChange={(e) => setFormData({ ...formData, Area_Name: toTitleCase(e.target.value) })}
-                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
-            />
-            <input 
-                type="number" 
-                placeholder="Area IC ID (Manager ID)" 
-                value={formData.AIC_ID || ''} 
-                onChange={(e) => setFormData({ ...formData, AIC_ID: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
-            />
-        </div>
-        <div className="mt-5 flex gap-2">
-            <button onClick={onSave} className="flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md bg-green-600 hover:bg-green-700 transition-all">
-                ✅ Add Area
-            </button>
-            {formData.Area_Name && (
-                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all">
-                    🗑️ Delete Area
+        <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+            <h3 className="text-lg font-bold text-white mb-4">➕ Add New Area</h3>
+            <div className="grid grid-cols-2 gap-4">
+                <input
+                    type="text"
+                    placeholder="Area Name (e.g., North Region)"
+                    value={formData.Area_Name || ''}
+                    onChange={(e) => setFormData({ ...formData, Area_Name: toTitleCase(e.target.value) })}
+                    className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
+                />
+                <input
+                    type="number"
+                    placeholder="Area IC ID (Manager ID)"
+                    value={formData.AIC_ID || ''}
+                    onChange={(e) => setFormData({ ...formData, AIC_ID: parseInt(e.target.value) || '' })}
+                    className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
+                />
+            </div>
+            <div className="mt-5 flex gap-2">
+                <button onClick={onSave} className="flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md bg-green-600 hover:bg-green-700 transition-all">
+                    ✅ Add Area
                 </button>
-            )}
+                {formData.Area_Name && (
+                    <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition-all">
+                        🗑️ Delete Area
+                    </button>
+                )}
+            </div>
         </div>
-    </div>
     );
 };
 
@@ -384,76 +384,76 @@ const AreaForm = ({ formData, setFormData, onSave, onDelete }) => {
 const WorkshopForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => {
     // Title case conversion function
     const toTitleCase = (str) => {
-        return str.toLowerCase().split(' ').map(word => 
+        return str.toLowerCase().split(' ').map(word =>
             word.charAt(0).toUpperCase() + word.slice(1)
         ).join(' ');
     };
 
     return (
-    <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
-        <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Workshop' : '➕ Add Workshop'}</h3>
-        <div className="grid grid-cols-3 gap-3">
-            <input 
-                type="number" 
-                placeholder="Code" 
-                value={formData.wkCode || ''} 
-                onChange={(e) => setFormData({ ...formData, wkCode: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
-            />
-            <input 
-                type="text" 
-                placeholder="Name" 
-                value={formData.wkName || ''} 
-                onChange={(e) => setFormData({ ...formData, wkName: e.target.value })}
-                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
-            />
-            <input 
-                type="text" 
-                placeholder="Area (e.g., North)" 
-                value={formData.wkArea || ''} 
-                onChange={(e) => setFormData({ ...formData, wkArea: toTitleCase(e.target.value) })}
-                className="col-span-3 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
-            />
-            <input 
-                type="number" 
-                placeholder="Manpower" 
-                value={formData.manpower || ''} 
-                onChange={(e) => setFormData({ ...formData, manpower: parseInt(e.target.value) || '' })}
-                className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
-            />
-            <input 
-                type="number" 
-                placeholder="Customer Visits" 
-                value={formData.customer_visits || ''} 
-                onChange={(e) => setFormData({ ...formData, customer_visits: parseInt(e.target.value) || '' })}
-                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
-            />
-            <select
-                value={formData.recovery || 'no'}
-                onChange={(e) => setFormData({ ...formData, recovery: e.target.value })}
-                className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
-            >
-                <option value="no">Recovery: No</option>
-                <option value="yes">Recovery: Yes</option>
-            </select>
-            <p className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Score: {formData.score || 'N/A'}</p>
-        </div>
-        <div className="mt-5 flex gap-2">
-            <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
-                {isEditing ? '💾 Update' : '✅ Add Workshop'}
-            </button>
-            {isEditing && (
-                <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
-                    🗑️ Delete
+        <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
+            <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Workshop' : '➕ Add Workshop'}</h3>
+            <div className="grid grid-cols-3 gap-3">
+                <input
+                    type="number"
+                    placeholder="Code"
+                    value={formData.wkCode || ''}
+                    onChange={(e) => setFormData({ ...formData, wkCode: parseInt(e.target.value) || '' })}
+                    className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
+                />
+                <input
+                    type="text"
+                    placeholder="Name"
+                    value={formData.wkName || ''}
+                    onChange={(e) => setFormData({ ...formData, wkName: e.target.value })}
+                    className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
+                />
+                <input
+                    type="text"
+                    placeholder="Area (e.g., North)"
+                    value={formData.wkArea || ''}
+                    onChange={(e) => setFormData({ ...formData, wkArea: toTitleCase(e.target.value) })}
+                    className="col-span-3 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
+                />
+                <input
+                    type="number"
+                    placeholder="Manpower"
+                    value={formData.manpower || ''}
+                    onChange={(e) => setFormData({ ...formData, manpower: parseInt(e.target.value) || '' })}
+                    className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
+                />
+                <input
+                    type="number"
+                    placeholder="Customer Visits"
+                    value={formData.customer_visits || ''}
+                    onChange={(e) => setFormData({ ...formData, customer_visits: parseInt(e.target.value) || '' })}
+                    className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
+                />
+                <select
+                    value={formData.recovery || 'no'}
+                    onChange={(e) => setFormData({ ...formData, recovery: e.target.value })}
+                    className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
+                >
+                    <option value="no">Recovery: No</option>
+                    <option value="yes">Recovery: Yes</option>
+                </select>
+                <p className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Score: {formData.score || 'N/A'}</p>
+            </div>
+            <div className="mt-5 flex gap-2">
+                <button onClick={onSave} className={`flex-1 px-5 py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all ${isEditing ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'}`}>
+                    {isEditing ? '💾 Update' : '✅ Add Workshop'}
                 </button>
-            )}
-            {isEditing && (
-                <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
-                    🔄 Clear
-                </button>
-            )}
+                {isEditing && (
+                    <button onClick={onDelete} className="flex-1 px-5 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                        🗑️ Delete
+                    </button>
+                )}
+                {isEditing && (
+                    <button onClick={() => setFormData({})} className="flex-1 px-5 py-3 bg-slate-600 hover:bg-slate-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all">
+                        🔄 Clear
+                    </button>
+                )}
+            </div>
         </div>
-    </div>
     );
 };
 
@@ -461,45 +461,45 @@ const WICForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
     <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
         <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Workshop IC' : '➕ Add Workshop IC'}</h3>
         <div className="grid grid-cols-2 gap-3">
-            <input 
-                type="number" 
-                placeholder="WIC ID" 
-                value={formData.WkICID || ''} 
+            <input
+                type="number"
+                placeholder="WIC ID"
+                value={formData.WkICID || ''}
                 onChange={(e) => setFormData({ ...formData, WkICID: parseInt(e.target.value) || '' })}
                 className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
             />
-            <input 
-                type="number" 
-                placeholder="Area IC ID" 
-                value={formData.AreaIC || ''} 
+            <input
+                type="number"
+                placeholder="Area IC ID"
+                value={formData.AreaIC || ''}
                 onChange={(e) => setFormData({ ...formData, AreaIC: parseInt(e.target.value) || '' })}
                 className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
-            <input 
-                type="text" 
-                placeholder="First Name" 
-                value={formData.FName || ''} 
+            <input
+                type="text"
+                placeholder="First Name"
+                value={formData.FName || ''}
                 onChange={(e) => setFormData({ ...formData, FName: e.target.value })}
                 className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
-            <input 
-                type="text" 
-                placeholder="Middle Name (Optional)" 
-                value={formData.MName || ''} 
+            <input
+                type="text"
+                placeholder="Middle Name (Optional)"
+                value={formData.MName || ''}
                 onChange={(e) => setFormData({ ...formData, MName: e.target.value })}
                 className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
-            <input 
-                type="text" 
-                placeholder="Last Name" 
-                value={formData.LName || ''} 
+            <input
+                type="text"
+                placeholder="Last Name"
+                value={formData.LName || ''}
                 onChange={(e) => setFormData({ ...formData, LName: e.target.value })}
                 className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
-            <input 
-                type="number" 
-                placeholder="Rating (1-10)" 
-                value={formData.Rating || ''} 
+            <input
+                type="number"
+                placeholder="Rating (1-10)"
+                value={formData.Rating || ''}
                 onChange={(e) => setFormData({ ...formData, Rating: parseInt(e.target.value) || '' })}
                 className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
             />
@@ -524,9 +524,9 @@ const WICForm = ({ formData, setFormData, onSave, onDelete, isEditing }) => (
 
 const RevenueForm = ({ formData, setFormData, onSave, onDelete, allRevenueData }) => {
     // Determine if the currently entered PK combination (wkcode, year, quarter) exists in the full data set
-    const isEditing = allRevenueData.some(r => 
-        r.wkcode === formData.wkcode && 
-        r.year === formData.year && 
+    const isEditing = allRevenueData.some(r =>
+        r.wkcode === formData.wkcode &&
+        r.year === formData.year &&
         r.quarter === formData.quarter
     );
 
@@ -534,42 +534,42 @@ const RevenueForm = ({ formData, setFormData, onSave, onDelete, allRevenueData }
         <div className="p-6 bg-ktm-black-light rounded-xl shadow-md border border-ktm-orange">
             <h3 className="text-lg font-bold text-white mb-4">{isEditing ? '✏️ Update Revenue' : '➕ Add Revenue'}</h3>
             <div className="grid grid-cols-2 gap-3">
-                <input 
-                    type="number" 
-                    placeholder="Workshop Code" 
-                    value={formData.wkcode || ''} 
+                <input
+                    type="number"
+                    placeholder="Workshop Code"
+                    value={formData.wkcode || ''}
                     onChange={(e) => setFormData({ ...formData, wkcode: parseInt(e.target.value) || '' })}
                     className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
-                <input 
-                    type="number" 
-                    placeholder="Year" 
-                    value={formData.year || ''} 
+                <input
+                    type="number"
+                    placeholder="Year"
+                    value={formData.year || ''}
                     onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) || '' })}
                     className="col-span-1 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
-                 <input 
-                    type="number" 
-                    placeholder="Quarter (1-4)" 
-                    value={formData.quarter || ''} 
+                <input
+                    type="number"
+                    placeholder="Quarter (1-4)"
+                    value={formData.quarter || ''}
                     onChange={(e) => setFormData({ ...formData, quarter: parseInt(e.target.value) || '' })}
                     className="col-span-2 p-3 border rounded-lg bg-ktm-black-medium text-white border-ktm-orange focus:border-ktm-orange-bright focus:ring-2 focus:ring-ktm-orange/20"
                 />
-                <input 
-                    type="number" 
-                    placeholder="Total Sales" 
-                    value={formData.total_sales || ''} 
+                <input
+                    type="number"
+                    placeholder="Total Sales"
+                    value={formData.total_sales || ''}
                     onChange={(e) => setFormData({ ...formData, total_sales: parseInt(e.target.value) || '' })}
                     className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                 />
-                <input 
-                    type="number" 
-                    placeholder="Service Cost" 
-                    value={formData.service_cost || ''} 
+                <input
+                    type="number"
+                    placeholder="Service Cost"
+                    value={formData.service_cost || ''}
                     onChange={(e) => setFormData({ ...formData, service_cost: parseInt(e.target.value) || '' })}
                     className="col-span-1 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                 />
-                 <p className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Profit: {(formData.total_sales || 0) - (formData.service_cost || 0)}</p>
+                <p className="col-span-2 p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange text-sm font-semibold">Profit: {(formData.total_sales || 0) - (formData.service_cost || 0)}</p>
 
             </div>
             <div className="mt-5 flex gap-2">
@@ -605,7 +605,7 @@ const App = () => {
     const [wicData, setWicData] = useState([]);
     const [managesData, setManagesData] = useState([]);
     const [revenueData, setRevenueData] = useState([]);
-    
+
     // Form/Editing State
     const [aicForm, setAicForm] = useState({});
     const [areaForm, setAreaForm] = useState({}); // Area Form State
@@ -628,7 +628,7 @@ const App = () => {
 
     const [managesByWic, setManagesByWic] = useState([]);           // Linked to WIC click (Workshops managed by WIC)
     const [managesByWorkshop, setManagesByWorkshop] = useState([]); // Linked to Workshop click (WICs managing the Workshop)
-    
+
     const [revenuesByWorkshop, setRevenuesByWorkshop] = useState([]); // Linked to Workshop click
 
 
@@ -653,7 +653,7 @@ const App = () => {
             setLoading(false);
         }
     }, [showAlert]);
-    
+
     const refreshAllPrimaryData = useCallback(async () => {
         await fetchData('Area In-Charges', setAicData, '/aics');
         await fetchData('Areas', setAreaData, '/aics/areas');
@@ -678,7 +678,7 @@ const App = () => {
                 body: body ? JSON.stringify(body) : null,
             });
             showAlert(successMessage, 'success');
-            await refresh(); 
+            await refresh();
         } catch (error) {
             showAlert(`Operation failed: ${error.message}`, 'error');
         } finally {
@@ -692,10 +692,10 @@ const App = () => {
     // Handler for AIC Row Click (Form1.cs: dataGridView1_CellClick)
     const handleAicRowClick = async (aic) => {
         setAicForm(aic); // Load data for editing
-        
+
         // Load Areas by this AIC (dataGridView2)
         await fetchData(`Areas for AIC ${aic.ID}`, setAreasByAic, `/aics/${aic.ID}/areas`);
-        
+
         // Load WICs supervised by this AIC (dataGridView4)
         await fetchData(`WICs for AIC ${aic.ID}`, setWicsByAic, `/wics/area/${aic.ID}`);
     };
@@ -725,11 +725,11 @@ const App = () => {
         await fetchData(`Workshops managed by WIC ${wic.WkICID}`, setManagesByWic, `/wics/manages/ic/${wic.WkICID}`);
         setManagesForm({ ICID: wic.WkICID }); // Pre-fill form for relationship creation
     };
-    
+
     // Handler for Revenue Row Click (Form1.cs: dataGridView6_CellClick)
     const handleRevenueRowClick = (revenue) => {
         // Load data for editing/deletion
-        setRevenueForm(revenue); 
+        setRevenueForm(revenue);
     };
 
 
@@ -741,7 +741,7 @@ const App = () => {
         const endpoint = isEditing ? `/aics/${aicForm.ID}` : '/aics';
         const method = isEditing ? 'PUT' : 'POST';
         const message = isEditing ? 'AIC updated successfully.' : 'AIC added successfully.';
-        
+
         await handleAction(method, endpoint, aicForm, message, refreshAllPrimaryData);
         setAicForm({});
     };
@@ -753,7 +753,7 @@ const App = () => {
         setAreasByAic([]);
         setWicsByAic([]);
     };
-    
+
     // Area Handlers
     const handleAddArea = async () => {
         // --- FIX: Ensure the keys sent match the keys validated in the Node.js route ---
@@ -788,7 +788,7 @@ const App = () => {
         const endpoint = isEditing ? `/workshops/${workshopForm.wkCode}` : '/workshops';
         const method = isEditing ? 'PUT' : 'POST';
         const message = isEditing ? 'Workshop updated successfully.' : 'Workshop added successfully.';
-        
+
         await handleAction(method, endpoint, workshopForm, message, refreshAllPrimaryData);
         setWorkshopForm({});
     };
@@ -807,9 +807,9 @@ const App = () => {
         const endpoint = isEditing ? `/wics/${wicForm.WkICID}` : '/wics';
         const method = isEditing ? 'PUT' : 'POST';
         const message = isEditing ? 'WIC updated successfully.' : 'WIC added successfully.';
-        
+
         await handleAction(method, endpoint, wicForm, message, refreshAllPrimaryData);
-        setWicForm({}); 
+        setWicForm({});
     };
 
     const handleWicDelete = async () => {
@@ -822,29 +822,29 @@ const App = () => {
     // Revenue Handlers
     const handleRevenueSave = async () => {
         // Check if the entry already exists in the local data state
-        const isEditing = revenueData.some(r => 
-            r.wkcode === revenueForm.wkcode && 
-            r.year === revenueForm.year && 
+        const isEditing = revenueData.some(r =>
+            r.wkcode === revenueForm.wkcode &&
+            r.year === revenueForm.year &&
             r.quarter === revenueForm.quarter
         );
 
         // Use POST to '/workshops/revenue' for adds, and PUT with PKs in path for updates
-        const endpoint = isEditing 
+        const endpoint = isEditing
             ? `/workshops/revenue/${revenueForm.wkcode}/${revenueForm.year}/${revenueForm.quarter}`
             : '/workshops/revenue';
         const method = isEditing ? 'PUT' : 'POST';
         const message = isEditing ? 'Revenue entry updated successfully.' : 'Revenue entry added successfully.';
-        
+
         await handleAction(method, endpoint, revenueForm, message, refreshAllPrimaryData);
-        
+
         // Only clear form if NOT editing (i.e., it was a successful add)
         if (!isEditing) {
-            setRevenueForm({}); 
+            setRevenueForm({});
         }
-        
+
         // Refresh filtered revenue data specific to the current workshop context
         if (workshopForm.wkCode) {
-              await fetchData(`Revenues for Workshop ${workshopForm.wkCode}`, setRevenuesByWorkshop, `/workshops/${workshopForm.wkCode}/revenue`);
+            await fetchData(`Revenues for Workshop ${workshopForm.wkCode}`, setRevenuesByWorkshop, `/workshops/${workshopForm.wkCode}/revenue`);
         }
     };
 
@@ -852,28 +852,28 @@ const App = () => {
         if (!revenueForm.wkcode || !window.confirm(`Delete Revenue entry for Workshop ${revenueForm.wkcode}, Year ${revenueForm.year}, Quarter ${revenueForm.quarter}?`)) return;
         const endpoint = `/workshops/revenue/${revenueForm.wkcode}/${revenueForm.year}/${revenueForm.quarter}`;
         await handleAction('DELETE', endpoint, null, 'Revenue entry deleted successfully.', refreshAllPrimaryData);
-        
+
         if (workshopForm.wkCode) {
-              await fetchData(`Revenues for Workshop ${workshopForm.wkCode}`, setRevenuesByWorkshop, `/workshops/${workshopForm.wkCode}/revenue`);
+            await fetchData(`Revenues for Workshop ${workshopForm.wkCode}`, setRevenuesByWorkshop, `/workshops/${workshopForm.wkCode}/revenue`);
         }
         setRevenueForm({});
     };
-    
+
     // Manages Handlers
     const handleManagesEntryAdd = async () => {
         if (!managesForm.WkshpID || !managesForm.ICID) {
             return showAlert("Both Workshop ID and IC ID must be provided.", 'error');
         }
-        
+
         await handleAction('POST', '/wics/manages', managesForm, 'Relationship established successfully.', refreshAllPrimaryData);
         setManagesForm({}); // Clear form
 
         // If currently viewing related WICs/Workshops, refresh the context
         if (workshopForm.wkCode) {
-              await fetchData(`WICs for Workshop ${workshopForm.wkCode}`, setManagesByWorkshop, `/wics/manages/workshop/${workshopForm.wkCode}`);
+            await fetchData(`WICs for Workshop ${workshopForm.wkCode}`, setManagesByWorkshop, `/wics/manages/workshop/${workshopForm.wkCode}`);
         }
         if (wicForm.WkICID) {
-              await fetchData(`Workshops managed by WIC ${wicForm.WkICID}`, setManagesByWic, `/wics/manages/ic/${wicForm.WkICID}`);
+            await fetchData(`Workshops managed by WIC ${wicForm.WkICID}`, setManagesByWic, `/wics/manages/ic/${wicForm.WkICID}`);
         }
     };
 
@@ -884,10 +884,10 @@ const App = () => {
 
         // Refresh filtered data
         if (workshopForm.wkCode) {
-              await fetchData(`WICs for Workshop ${workshopForm.wkCode}`, setManagesByWorkshop, `/wics/manages/workshop/${workshopForm.wkCode}`);
+            await fetchData(`WICs for Workshop ${workshopForm.wkCode}`, setManagesByWorkshop, `/wics/manages/workshop/${workshopForm.wkCode}`);
         }
         if (wicForm.WkICID) {
-              await fetchData(`Workshops managed by WIC ${wicForm.WkICID}`, setManagesByWic, `/wics/manages/ic/${wicForm.WkICID}`);
+            await fetchData(`Workshops managed by WIC ${wicForm.WkICID}`, setManagesByWic, `/wics/manages/ic/${wicForm.WkICID}`);
         }
     };
 
@@ -903,17 +903,16 @@ const App = () => {
         const endpoint = workshopSearchTerm ? `/workshops/search?term=${workshopSearchTerm}` : '/workshops';
         await fetchData('Workshops', setWorkshopData, endpoint);
     };
-    
+
     const handleWicSearch = async (e) => {
         e.preventDefault();
         const endpoint = wicSearchTerm ? `/wics/search?term=${wicSearchTerm}` : '/wics';
         await fetchData('Workshop ICs', setWicData, endpoint);
     };
 
-    const tabClasses = (tab) => 
-        `px-6 py-3 font-semibold transition-all duration-300 border-b-4 ${
-            activeTab === tab 
-            ? 'bg-gradient-to-t from-ktm-orange to-ktm-orange-dark text-white border-ktm-orange-dark shadow-lg transform scale-105' 
+    const tabClasses = (tab) =>
+        `px-6 py-3 font-semibold transition-all duration-300 border-b-4 ${activeTab === tab
+            ? 'bg-gradient-to-t from-ktm-orange to-ktm-orange-dark text-white border-ktm-orange-dark shadow-lg transform scale-105'
             : 'bg-ktm-black-light text-white border-transparent hover:bg-ktm-black-medium hover:border-ktm-orange hover:text-ktm-orange'
         } rounded-t-lg`;
 
@@ -936,7 +935,7 @@ const App = () => {
                     </div>
                 </div>
             </header>
-            
+
             <div className="flex justify-start border-b-2 border-ktm-orange overflow-x-auto flex-wrap bg-ktm-black-light rounded-t-xl shadow-md p-2 gap-2">
                 <button className={tabClasses('home')} onClick={() => setActiveTab('home')}>🏠 Home</button>
                 <button className={tabClasses('aics')} onClick={() => setActiveTab('aics')}>👔 Area ICs</button>
@@ -962,18 +961,18 @@ const App = () => {
                 {activeTab === 'aics' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="col-span-1">
-                            <AicForm 
-                                formData={aicForm} 
-                                setFormData={setAicForm} 
-                                onSave={handleAicSave} 
-                                onDelete={handleAicDelete} 
+                            <AicForm
+                                formData={aicForm}
+                                setFormData={setAicForm}
+                                onSave={handleAicSave}
+                                onDelete={handleAicDelete}
                                 isEditing={aicForm.ID && aicData.some(a => a.ID === aicForm.ID)}
                             />
                         </div>
                         <div className="col-span-2 space-y-4">
                             <form onSubmit={handleAicSearch} className="flex space-x-2">
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     placeholder="Search Area IC by Name..."
                                     value={aicSearchTerm}
                                     onChange={(e) => setAicSearchTerm(e.target.value)}
@@ -982,17 +981,17 @@ const App = () => {
                                 <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Search</button>
                                 <button type="button" onClick={() => fetchData('Area In-Charges', setAicData, '/aics')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
-                            <DataTable 
-                                data={aicData} 
-                                onRowClick={handleAicRowClick} 
-                                title="Area In-Charges (Click to see related Areas/WICs)" 
+                            <DataTable
+                                data={aicData}
+                                onRowClick={handleAicRowClick}
+                                title="Area In-Charges (Click to see related Areas/WICs)"
                                 headerMap={{ ID: 'ID', FirstName: 'First Name', MiddleName: 'Middle Name', LastName: 'Last Name' }}
                             />
-                            
+
                             {/* Secondary grids based on selected AIC */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <DataTable data={areasByAic} title={`Areas Controlled by IC ${aicForm.ID || '...'}`} headerMap={{ Area_Name: 'Area Name', AIC_ID: 'Area IC ID' }}/>
-                                <DataTable data={wicsByAic} title={`WICs Supervised by IC ${aicForm.ID || '...'}`} headerMap={{ WkICID: 'WIC ID', FName: 'First Name', Rating: 'Rating' }}/>
+                                <DataTable data={areasByAic} title={`Areas Controlled by IC ${aicForm.ID || '...'}`} headerMap={{ Area_Name: 'Area Name', AIC_ID: 'Area IC ID' }} />
+                                <DataTable data={wicsByAic} title={`WICs Supervised by IC ${aicForm.ID || '...'}`} headerMap={{ WkICID: 'WIC ID', FName: 'First Name', Rating: 'Rating' }} />
                             </div>
                         </div>
                     </div>
@@ -1009,15 +1008,15 @@ const App = () => {
                         </div>
                         <div className="col-span-2">
                             <div className="mb-6">
-                                <DataTable 
-                                    data={areaData} 
-                                    onRowClick={(row) => { setAreaForm(row); handleAreaRowClick(row); }} 
-                                    title="All Registered Areas (Click row to filter Workshops)" 
+                                <DataTable
+                                    data={areaData}
+                                    onRowClick={(row) => { setAreaForm(row); handleAreaRowClick(row); }}
+                                    title="All Registered Areas (Click row to filter Workshops)"
                                     headerMap={{ Area_Name: 'Area Name', AIC_ID: 'Area IC ID' }}
                                 />
                             </div>
-                            <DataTable 
-                                data={workshopsByArea} 
+                            <DataTable
+                                data={workshopsByArea}
                                 title={`Workshops in Selected Area (${workshopsByArea.length})`}
                                 headerMap={{ wkCode: 'Code', wkName: 'Name', manpower: 'Manpower', score: 'Score' }}
                             />
@@ -1029,18 +1028,18 @@ const App = () => {
                 {activeTab === 'workshops' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="col-span-1">
-                            <WorkshopForm 
-                                formData={workshopForm} 
-                                setFormData={setWorkshopForm} 
+                            <WorkshopForm
+                                formData={workshopForm}
+                                setFormData={setWorkshopForm}
                                 onSave={handleWorkshopSave}
                                 onDelete={handleWorkshopDelete}
                                 isEditing={workshopForm.wkCode && workshopData.some(w => w.wkCode === workshopForm.wkCode)}
                             />
                         </div>
                         <div className="col-span-2 space-y-4">
-                             <form onSubmit={handleWorkshopSearch} className="flex space-x-2">
-                                <input 
-                                    type="text" 
+                            <form onSubmit={handleWorkshopSearch} className="flex space-x-2">
+                                <input
+                                    type="text"
                                     placeholder="Search Workshop by Name..."
                                     value={workshopSearchTerm}
                                     onChange={(e) => setWorkshopSearchTerm(e.target.value)}
@@ -1049,63 +1048,63 @@ const App = () => {
                                 <button type="submit" className="bg-ktm-orange text-white px-4 py-2 rounded-lg hover:bg-ktm-orange-dark">Search</button>
                                 <button type="button" onClick={() => fetchData('Workshops', setWorkshopData, '/workshops')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
-                            <DataTable 
-                                data={workshopData} 
-                                onRowClick={handleWorkshopRowClick} 
-                                title="All Workshops (Click to see Revenue/Manages)" 
+                            <DataTable
+                                data={workshopData}
+                                onRowClick={handleWorkshopRowClick}
+                                title="All Workshops (Click to see Revenue/Manages)"
                                 headerMap={{ wkCode: 'Code', wkName: 'Name', wkArea: 'Area', customer_visits: 'Cust Visits', recovery: 'Recovery', score: 'Score' }}
                             />
 
                             {/* Secondary grids based on selected Workshop */}
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <DataTable data={managesByWorkshop} title={`WICs Managing Workshop ${workshopForm.wkCode || '...'}`} headerMap={{ WkshpID: 'Wk Code', ICID: 'WIC ID' }}/>
+                                <DataTable data={managesByWorkshop} title={`WICs Managing Workshop ${workshopForm.wkCode || '...'}`} headerMap={{ WkshpID: 'Wk Code', ICID: 'WIC ID' }} />
                                 <DataTable data={revenuesByWorkshop} onRowClick={handleRevenueRowClick} title={`Revenue for Workshop ${workshopForm.wkCode || '...'}`} />
                             </div>
                         </div>
                     </div>
                 )}
-                
+
                 {/* --- TAB: REVENUE --- */}
                 {activeTab === 'revenue' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="col-span-1">
-                            <RevenueForm 
-                                formData={revenueForm} 
-                                setFormData={setRevenueForm} 
+                            <RevenueForm
+                                formData={revenueForm}
+                                setFormData={setRevenueForm}
                                 onSave={handleRevenueSave}
                                 onDelete={handleRevenueDelete}
                                 // Pass revenueData to the form for the isEditing check
-                                allRevenueData={revenueData} 
+                                allRevenueData={revenueData}
                             />
                             <button type="button" onClick={() => fetchData('Revenue', setRevenueData, '/workshops/revenue')} className="mt-6 px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg shadow-md hover:bg-gray-600">Load All Revenues</button>
                         </div>
                         <div className="col-span-2">
-                            <DataTable 
-                                data={revenueData} 
-                                onRowClick={handleRevenueRowClick} 
-                                title="All Revenue Records (Click row to edit/delete)" 
+                            <DataTable
+                                data={revenueData}
+                                onRowClick={handleRevenueRowClick}
+                                title="All Revenue Records (Click row to edit/delete)"
                                 headerMap={{ wkcode: 'WK Code', year: 'Year', quarter: 'Qtr', total_sales: 'Sales', service_cost: 'Cost', profit: 'Profit' }}
                             />
                         </div>
                     </div>
                 )}
-                
+
                 {/* --- TAB: WORKSHOP ICs (WIC) --- */}
                 {activeTab === 'wics' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="col-span-1">
-                            <WICForm 
-                                formData={wicForm} 
-                                setFormData={setWicForm} 
+                            <WICForm
+                                formData={wicForm}
+                                setFormData={setWicForm}
                                 onSave={handleWicSave}
                                 onDelete={handleWicDelete}
                                 isEditing={wicForm.WkICID && wicData.some(w => w.WkICID === wicForm.WkICID)}
                             />
                         </div>
                         <div className="col-span-2 space-y-4">
-                             <form onSubmit={handleWicSearch} className="flex space-x-2">
-                                <input 
-                                    type="text" 
+                            <form onSubmit={handleWicSearch} className="flex space-x-2">
+                                <input
+                                    type="text"
                                     placeholder="Search WIC by First Name..."
                                     value={wicSearchTerm}
                                     onChange={(e) => setWicSearchTerm(e.target.value)}
@@ -1114,36 +1113,36 @@ const App = () => {
                                 <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Search</button>
                                 <button type="button" onClick={() => fetchData('Workshop ICs', setWicData, '/wics')} className="bg-gray-400 text-white px-4 py-2 rounded-lg hover:bg-gray-500">Load All</button>
                             </form>
-                            <DataTable 
-                                data={wicData} 
-                                onRowClick={handleWicRowClick} 
-                                title="All Workshop In-Charges (Click to see managed Workshops)" 
+                            <DataTable
+                                data={wicData}
+                                onRowClick={handleWicRowClick}
+                                title="All Workshop In-Charges (Click to see managed Workshops)"
                                 headerMap={{ WkICID: 'ID', FName: 'First Name', Rating: 'Rating', AreaIC: 'Area IC ID' }}
                             />
 
                             {/* Secondary grid based on selected WIC */}
-                            <DataTable data={managesByWic} title={`Workshops Managed by WIC ${wicForm.WkICID || '...'}`} headerMap={{ WkshpID: 'Wk Code', ICID: 'WIC ID' }}/>
+                            <DataTable data={managesByWic} title={`Workshops Managed by WIC ${wicForm.WkICID || '...'}`} headerMap={{ WkshpID: 'Wk Code', ICID: 'WIC ID' }} />
                         </div>
                     </div>
                 )}
-                
+
                 {/* --- TAB: MANAGES RELATIONS --- */}
                 {activeTab === 'manages' && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="col-span-1 p-4 bg-ktm-black-light rounded-lg shadow-inner border border-ktm-orange">
                             <h3 className="text-lg font-bold text-white mb-3">Add Relationship</h3>
                             <div className="space-y-3">
-                                <input 
-                                    type="number" 
-                                    placeholder="Workshop Code (WkshpID)" 
-                                    value={managesForm.WkshpID || ''} 
+                                <input
+                                    type="number"
+                                    placeholder="Workshop Code (WkshpID)"
+                                    value={managesForm.WkshpID || ''}
                                     onChange={(e) => setManagesForm({ ...managesForm, WkshpID: parseInt(e.target.value) || '' })}
                                     className="w-full p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
-                                <input 
-                                    type="number" 
-                                    placeholder="WIC ID (ICID)" 
-                                    value={managesForm.ICID || ''} 
+                                <input
+                                    type="number"
+                                    placeholder="WIC ID (ICID)"
+                                    value={managesForm.ICID || ''}
                                     onChange={(e) => setManagesForm({ ...managesForm, ICID: parseInt(e.target.value) || '' })}
                                     className="w-full p-2 border rounded-md bg-ktm-black-medium text-white border-ktm-orange"
                                 />
@@ -1159,9 +1158,9 @@ const App = () => {
                             <button type="button" onClick={() => fetchData('Manages', setManagesData, '/wics/manages')} className="mt-6 px-4 py-2 bg-gray-400 text-white font-semibold rounded-lg shadow-md hover:bg-gray-500">Load All Manages</button>
                         </div>
                         <div className="col-span-2">
-                            <DataTable 
-                                data={managesData} 
-                                title="All Workshop-IC Management Links (Click to delete)" 
+                            <DataTable
+                                data={managesData}
+                                title="All Workshop-IC Management Links (Click to delete)"
                                 headerMap={{ WkshpID: 'Workshop Code', ICID: 'WIC ID' }}
                                 onRowClick={handleManagesEntryDelete}
                             />
